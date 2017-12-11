@@ -4,6 +4,7 @@ import { CoinsView, updateCoins } from "./coins";
 import { blockMerkleRoot } from "./merkle";
 import { Tx, isCoinbaseTx, isNormalTx } from "./tx";
 import { verifyTx } from "./txVerify";
+import {TxInput} from "./types";
 
 export function connectBlock(block: Block, inputs: CoinsView): boolean {
     const cache = new CoinsView(inputs);
@@ -76,7 +77,26 @@ export function checkTx(tx: Tx): boolean {
         }
     }
 
-    // FIXME: Check for duplicate inputs.
+    // inputs 에서 ScriptSig가 중복된 것을 찾아보자
+    if(isNormalTx(tx) && hasDuplicates(tx.inputs())){
+        console.log("bad-txns-duplicate");
+        return false;
+    }
 
     return true;
 }
+
+// https://stackoverflow.com/questions/7376598/in-javascript-how-do-i-check-if-an-array-has-duplicate-values
+function hasDuplicates(_inputs: TxInput[]) {
+    var valuesSoFar = Object.create(null);
+    for (var i = 0; i < array.length; ++i) {
+        var value = array[i].ScriptSig;
+        if (value in valuesSoFar) {
+            return true;
+        }
+        valuesSoFar[value] = true;
+    }
+    return false;
+}
+
+

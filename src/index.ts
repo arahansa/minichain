@@ -38,8 +38,13 @@ function main() {
 
     const view = new CoinsView();
 
+    // 마이닝 보상이 1번에게
     const script1 = payToPubKeyHash(pubKey1);
+
+    // 누가받을지를 지정 : script1
     const genesisBlock = createNewBlock(script1);
+
+    // 블록을 검증 후 팁으로 붙임.
     connectBlock(genesisBlock, view);
 
     const prevTx = genesisBlock.txs[0];

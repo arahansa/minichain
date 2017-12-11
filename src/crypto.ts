@@ -3,7 +3,7 @@ import { randomBytes } from "crypto";
 import { setLengthLeft, toBuffer } from "./buffer";
 
 const createKeccakHash = require("keccak");
-const secp256k1 = require("secp256k1");
+const secp256k1 = require("secp256k1"); // ecc 알고리즘
 const createHash = require("create-hash");
 
 /**
@@ -87,6 +87,7 @@ export function doubleSha256(a: Buffer | Array<any> | string | number): Buffer {
 
 /**
  * Creates RIPEMD160 hash of the input
+ * 퍼블릭키를 해시할 때의 키 사이즈를 줄이기 위하여
  */
 export function ripemd160(a: Buffer | Array<any> | string | number, padded: boolean): Buffer {
     a = toBuffer(a);

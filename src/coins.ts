@@ -68,11 +68,12 @@ export class CoinsView {
     }
 
     // FIXME: Implement valueIn.
+    // 아 이건 아닌 것같다
     /**
      * Returns the amount of coins coming in to a transaction.
      */
     public valueIn(_tx: Tx): number {
-        throw new Error("Not implemented");
+        return _tx.valueOut();
     }
 
     /**

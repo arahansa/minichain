@@ -71,5 +71,6 @@ export const EMPTY_SCRIPT_SIG: ScriptSig = {
 
 export interface TxOutput {
     value: number;
+    // 잠그는 스크립트. 자물쇠.
     txOutScript: Script;
 }
